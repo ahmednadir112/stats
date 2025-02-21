@@ -2,12 +2,16 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Health and Wellbeing Sustainable Development Goal</title>
+    <title>Health and wellbeing SDG</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.2/reset.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.2/reveal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.2/theme/white.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.2/reveal.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> <!-- Plotly for Scatter Plot -->
+
+    <!-- MathJax for LaTeX Rendering -->
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
 
     <style>
         /* General Styles */
@@ -17,14 +21,34 @@
         .slides {
             background-color: white !important;
         }
-        h2 {
+
+        /* Title Styling */
+        h3 {
             color: black;
+            font-size: 18px; /* Ensures it fits in one line */
+            text-transform: none !important;
+            font-weight: normal;
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Regression table heading styling */
+        #table h3 {
+            font-size: 16px; /* Smaller font */
+            font-weight: normal;
+        }
+
+        /* Ensuring all headings and tabs do not get capitalized */
+        .reveal h3, .tab {
+            text-transform: none !important;
         }
 
         /* Sleek Tabs Styling */
         .tab-container {
             display: flex;
             justify-content: center;
+            gap: 15px; /* Adds spacing between tabs */
             border-bottom: 2px solid #ddd;
             margin-bottom: 20px;
             padding-bottom: 5px;
@@ -37,6 +61,7 @@
             color: #555;
             position: relative;
             transition: color 0.3s ease;
+            text-transform: none !important;
         }
         .tab:hover {
             color: #007bff;
@@ -65,20 +90,16 @@
             display: block;
         }
 
-        /* Smaller Table Styling */
-        .regression-table {
-            width: 50%;
-            margin: auto;
+        /* LaTeX Table */
+        .latex-table {
             font-size: 14px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 6px;
             text-align: center;
         }
-        th {
-            background: #007bff;
-            color: white;
+
+        /* Equation Styling */
+        .equation {
+            font-size: 16px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -87,12 +108,12 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>Maternal Mortality Report</h2>
+            <h3>Health and wellbeing SDG</h3> <!-- Title fits in one line -->
 
             <!-- Sleek Tabs -->
             <div class="tab-container">
                 <div class="tab active" onclick="openTab(event, 'chart')">Chart</div>
-                <div class="tab" onclick="openTab(event, 'scatter')">Scatter Plot</div>
+                <div class="tab" onclick="openTab(event, 'correlation')">Correlation</div>
                 <div class="tab" onclick="openTab(event, 'table')">Table</div>
             </div>
 
@@ -101,58 +122,35 @@
                 <iframe src="maternal_mortality_plot.html" width="100%" height="500px" style="border:none;"></iframe>
             </div>
 
-            <!-- Scatter Plot Tab (Includes Same Chart) -->
-            <div id="scatter" class="tab-content">
-                <iframe src="maternal_mortality_plot.html" width="100%" height="500px" style="border:none;"></iframe>
-                <div id="scatterPlot" style="width: 100%; height: 500px;"></div>
+            <!-- Correlation Tab -->
+            <div id="correlation" class="tab-content">
+                <iframe src="correlation.html" width="100%" height="500px" style="border:none;"></iframe>
             </div>
 
-            <!-- Table Tab (Includes Regression Output) -->
+            <!-- Table Tab (LaTeX Table) -->
             <div id="table" class="tab-content">
-                <h3>Linear Regression Output</h3>
-                <table class="regression-table">
-                    <thead>
-                        <tr>
-                            <th>Term</th>
-                            <th>Estimate</th>
-                            <th>Std. Error</th>
-                            <th>t value</th>
-                            <th>Pr(>|t|)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Intercept</td>
-                            <td>5.432</td>
-                            <td>1.203</td>
-                            <td>4.51</td>
-                            <td>0.0012</td>
-                        </tr>
-                        <tr>
-                            <td>GDP</td>
-                            <td>-0.872</td>
-                            <td>0.156</td>
-                            <td>-5.59</td>
-                            <td>0.0003</td>
-                        </tr>
-                        <tr>
-                            <td>Healthcare Spending</td>
-                            <td>0.432</td>
-                            <td>0.098</td>
-                            <td>4.41</td>
-                            <td>0.0015</td>
-                        </tr>
-                        <tr>
-                            <td>Education Index</td>
-                            <td>-0.678</td>
-                            <td>0.129</td>
-                            <td>-5.26</td>
-                            <td>0.0004</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                <h3>Regression table</h3>
 
+                <!-- Regression Equation -->
+                <div class="equation">
+                    $$ 
+                    \text{MaternalMortRate} = -1080.94 + 47.35 \times \text{NeonatalDeathRate} 
+                    $$
+                </div>
+
+                <div class="latex-table">
+                    $$ 
+                    \begin{array}{|c|c|c|c|c|}
+                    \hline
+                    \textbf{Term} & \textbf{Estimate} & \textbf{Std. error} & \textbf{t value} & \textbf{Pr(>|t|)} \\
+                    \hline
+                    \text{Intercept} & -1080.94 & 44.07 & -24.53 & 4.03 \times 10^{-14} \\
+                    \text{Neonatal death rate} & 47.35 & 1.35 & 35.07 & < 2.2 \times 10^{-16} \\
+                    \hline
+                    \end{array}
+                    $$
+                </div>
+            </div>
         </section>
     </div>
 </div>
@@ -171,34 +169,9 @@
         document.getElementById(tabName).classList.add('active');
         event.currentTarget.classList.add('active');
 
-        // Render scatter plot only when the tab is opened
-        if (tabName === 'scatter') {
-            renderScatterPlot();
-        }
-    }
-
-    function renderScatterPlot() {
-        let scatterDiv = document.getElementById('scatterPlot');
-
-        if (!scatterDiv.innerHTML) { // Prevents re-rendering
-            let trace1 = {
-                x: ['USA', 'UK', 'India', 'Nigeria', 'Ethiopia'],
-                y: [17, 9, 145, 814, 412], // Added more data points
-                mode: 'markers',
-                type: 'scatter',
-                marker: { 
-                    size: [20, 15, 40, 60, 50], 
-                    color: ['blue', 'green', 'red', 'purple', 'orange']
-                }
-            };
-
-            let layout = {
-                title: 'Scatter Plot of Maternal Mortality',
-                xaxis: { title: 'Country' },
-                yaxis: { title: 'Mortality Rate (per 100,000)' }
-            };
-
-            Plotly.newPlot('scatterPlot', [trace1], layout);
+        // Force LaTeX to re-render when switching to the table tab
+        if (tabName === 'table') {
+            setTimeout(() => { MathJax.Hub.Queue(["Typeset", MathJax.Hub]); }, 100);
         }
     }
 
