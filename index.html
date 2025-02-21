@@ -101,8 +101,9 @@
                 <iframe src="maternal_mortality_plot.html" width="100%" height="500px" style="border:none;"></iframe>
             </div>
 
-            <!-- Scatter Plot Tab -->
+            <!-- Scatter Plot Tab (Includes Same Chart) -->
             <div id="scatter" class="tab-content">
+                <iframe src="maternal_mortality_plot.html" width="100%" height="500px" style="border:none;"></iframe>
                 <div id="scatterPlot" style="width: 100%; height: 500px;"></div>
             </div>
 
@@ -181,11 +182,14 @@
 
         if (!scatterDiv.innerHTML) { // Prevents re-rendering
             let trace1 = {
-                x: ['USA', 'UK', 'India'],
-                y: [17, 9, 145],
+                x: ['USA', 'UK', 'India', 'Nigeria', 'Ethiopia'],
+                y: [17, 9, 145, 814, 412], // Added more data points
                 mode: 'markers',
                 type: 'scatter',
-                marker: { size: [20, 15, 40], color: ['blue', 'green', 'red'] }
+                marker: { 
+                    size: [20, 15, 40, 60, 50], 
+                    color: ['blue', 'green', 'red', 'purple', 'orange']
+                }
             };
 
             let layout = {
@@ -203,4 +207,3 @@
 
 </body>
 </html>
-
